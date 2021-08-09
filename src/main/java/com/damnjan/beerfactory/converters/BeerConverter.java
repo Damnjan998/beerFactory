@@ -22,6 +22,7 @@ public class BeerConverter {
     }
 
     public BeerModel convert(BeerEntity beerEntity) {
+
         if (beerEntity == null) {
             return null;
         }
