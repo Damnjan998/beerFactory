@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -21,4 +23,8 @@ public class BeerEntity {
 
     private String name;
     private String description;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "beer")
+    private Set<MashTempEntity> mashTempEntities = new HashSet<>();
+
 }

@@ -1,6 +1,4 @@
 package com.damnjan.beerfactory.model;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MashTempModel {
+public class TempModel {
 
-    private TempModel tempModel;
+    private Integer value;
 
-    private Integer duration;
+    private String unit;
 }

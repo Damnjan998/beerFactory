@@ -1,17 +1,16 @@
 package com.damnjan.beerfactory.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MashTempModel {
+public class BeerRandomModel {
 
-    private TempModel tempModel;
-
-    private Integer duration;
+    private Long id;
+    private String name;
+    private String description;
+    private MethodModel methodModel;
 }

@@ -3,7 +3,8 @@ package com.damnjan.beerfactory.services;
 import com.damnjan.beerfactory.converters.BeerConverter;
 import com.damnjan.beerfactory.entities.BeerEntity;
 import com.damnjan.beerfactory.exceptions.BeerNotFoundException;
-import com.damnjan.beerfactory.model.BeerModel;
+import com.damnjan.beerfactory.model.BeerRandomModel;
+import com.damnjan.beerfactory.model.BeerResponse;
 import com.damnjan.beerfactory.repositories.BeerRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,12 @@ public class BeerService {
         this.beerConverter = beerConverter;
     }
 
-    public List<BeerModel> getAllBeers() {
+    public List<BeerResponse> getAllBeers() {
 
         return beerRepository.findAll().stream().map(beerConverter::convert).collect(Collectors.toList());
     }
 
-    public BeerModel getOneBeer(Long id) throws BeerNotFoundException {
+    public BeerResponse getOneBeer(Long id) throws BeerNotFoundException {
 
         BeerEntity beerEntity = beerRepository.findById(id)
                 .orElseThrow(() -> new BeerNotFoundException("There is no beer with ID: " + id));
@@ -34,14 +35,9 @@ public class BeerService {
         return beerConverter.convert(beerEntity);
     }
 
-    public void saveBeer(BeerModel beerModel) {
+    public void saveBeer() {
 
-        beerRepository.save(beerConverter.convert(beerModel));
-    }
-
-    public void saveBeers(List<BeerModel> beerModels) {
-
-        beerRepository.saveAll(beerModels.stream().map(beerConverter::convert).collect(Collectors.toList()));
+        beerRepository.save(beerConverter.convert(new BeerRandomModel()));
     }
 
     public void deleteBeerById(Long id) throws BeerNotFoundException {

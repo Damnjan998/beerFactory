@@ -1,5 +1,6 @@
 package com.damnjan.beerfactory.entities;
 
+import com.damnjan.beerfactory.model.MashTempModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,17 @@ public class MashTempEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long tempValue;
+    private Integer value;
     private String unit;
-    private Long duration;
+    private Integer duration;
+
+    @ManyToOne
+    @JoinColumn(name = "beer_id")
+    private BeerEntity beerEntity;
+
+    public MashTempEntity(MashTempModel mashTempModel) {
+        this.value = mashTempModel.getTempModel().getValue();
+        this.unit = mashTempModel.getTempModel().getUnit();
+        this.duration = mashTempModel.getDuration();
+    }
 }

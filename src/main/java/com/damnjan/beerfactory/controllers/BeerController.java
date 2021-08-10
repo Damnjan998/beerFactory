@@ -1,7 +1,7 @@
 package com.damnjan.beerfactory.controllers;
 
 import com.damnjan.beerfactory.exceptions.BeerNotFoundException;
-import com.damnjan.beerfactory.model.BeerModel;
+import com.damnjan.beerfactory.model.BeerResponse;
 import com.damnjan.beerfactory.services.BeerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +21,12 @@ public class BeerController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<BeerModel>> getAllBeers() {
+    public ResponseEntity<List<BeerResponse>> getAllBeers() {
         return ResponseEntity.ok(beerService.getAllBeers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BeerModel> getBeerById(@PathVariable Long id) {
+    public ResponseEntity<BeerResponse> getBeerById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(beerService.getOneBeer(id));
         } catch (BeerNotFoundException e) {
@@ -36,8 +36,8 @@ public class BeerController {
     }
 
     @PostMapping("/")
-    public ResponseEntity saveOneBeer(@RequestBody BeerModel beerModel) {
-        beerService.saveBeer(beerModel);
+    public ResponseEntity saveOneBeer() {
+        beerService.saveBeer();
         return ResponseEntity.ok().build();
     }
 
