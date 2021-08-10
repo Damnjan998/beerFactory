@@ -2,11 +2,11 @@ package com.damnjan.beerfactory.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class BeerNotFoundException extends Exception {
+public class BadRequestException extends Exception {
 
-    private final HttpStatus status = HttpStatus.NOT_FOUND;
+    private final HttpStatus status = HttpStatus.BAD_REQUEST;
 
-    public BeerNotFoundException(String message) {
+    public BadRequestException(String message) {
         super(message);
     }
 

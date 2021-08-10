@@ -1,6 +1,6 @@
 package com.damnjan.beerfactory.entities;
 
-import com.damnjan.beerfactory.model.MashTempModel;
+import com.damnjan.beerfactory.models.MashTempModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

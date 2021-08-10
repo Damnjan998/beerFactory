@@ -1,4 +1,4 @@
-package com.damnjan.beerfactory.model;
+package com.damnjan.beerfactory.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

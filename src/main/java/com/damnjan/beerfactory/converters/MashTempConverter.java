@@ -1,7 +1,7 @@
 package com.damnjan.beerfactory.converters;
 
 import com.damnjan.beerfactory.entities.MashTempEntity;
-import com.damnjan.beerfactory.model.MashTempModel;
+import com.damnjan.beerfactory.models.MashTempModel;
 import org.springframework.stereotype.Component;
 
 @Component

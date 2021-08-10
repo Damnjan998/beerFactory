@@ -2,8 +2,8 @@ package com.damnjan.beerfactory.converters;
 
 import com.damnjan.beerfactory.entities.BeerEntity;
 import com.damnjan.beerfactory.entities.MashTempEntity;
-import com.damnjan.beerfactory.model.BeerRandomModel;
-import com.damnjan.beerfactory.model.BeerResponse;
+import com.damnjan.beerfactory.models.BeerRandomModel;
+import com.damnjan.beerfactory.models.BeerResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;

@@ -4,4 +4,6 @@ import com.damnjan.beerfactory.entities.BeerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BeerRepository extends JpaRepository<BeerEntity, Long> {
+
+    boolean existsByName(String name);
 }

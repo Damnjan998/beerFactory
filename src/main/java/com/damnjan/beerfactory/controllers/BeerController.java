@@ -1,9 +1,11 @@
 package com.damnjan.beerfactory.controllers;
 
+import com.damnjan.beerfactory.exceptions.BadRequestException;
 import com.damnjan.beerfactory.exceptions.BeerNotFoundException;
-import com.damnjan.beerfactory.model.BeerResponse;
+import com.damnjan.beerfactory.models.BeerResponse;
 import com.damnjan.beerfactory.services.BeerService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,19 +28,24 @@ public class BeerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BeerResponse> getBeerById(@PathVariable Long id) {
+    public ResponseEntity getBeerById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(beerService.getOneBeer(id));
         } catch (BeerNotFoundException e) {
             log.error(e.getMessage());
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
     }
 
     @PostMapping("/")
     public ResponseEntity saveOneBeer() {
-        beerService.saveBeer();
-        return ResponseEntity.ok().build();
+        try {
+            beerService.saveBeer();
+            return ResponseEntity.ok().build();
+        } catch (BadRequestException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -48,7 +55,7 @@ public class BeerController {
             return ResponseEntity.ok().build();
         } catch (BeerNotFoundException e) {
             log.error(e.getMessage());
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
     }
 }
