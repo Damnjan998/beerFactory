@@ -24,7 +24,7 @@ public class BeerEntity {
     private String name;
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "beer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "beerEntity")
     private Set<MashTempEntity> mashTempEntities = new HashSet<>();
 
 }

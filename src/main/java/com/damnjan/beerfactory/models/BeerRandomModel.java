@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BeerRandomModel {
 
-    private Long id;
     private String name;
     private String description;
-    private MethodModel methodModel;
+    private MethodModel method;
 }

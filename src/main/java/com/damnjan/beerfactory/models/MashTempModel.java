@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MashTempModel {
 
-    private TempModel tempModel;
+    private TempModel temp;
 
     private Integer duration;
 }

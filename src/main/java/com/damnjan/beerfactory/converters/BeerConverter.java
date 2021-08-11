@@ -21,7 +21,7 @@ public class BeerConverter {
         final BeerEntity beerEntity = new BeerEntity();
         beerEntity.setName(beerRandomModel.getName());
         beerEntity.setDescription(beerRandomModel.getDescription());
-        beerEntity.setMashTempEntities(convertToMashTempEntities(beerRandomModel));
+        beerEntity.setMashTempEntities(convertToMashTempEntities(beerRandomModel, beerEntity));
 
         return beerEntity;
     }
@@ -49,16 +49,16 @@ public class BeerConverter {
         return beerResponse;
     }
 
-    private Set<MashTempEntity> convertToMashTempEntities(BeerRandomModel beerRandomModel) {
+    private Set<MashTempEntity> convertToMashTempEntities(BeerRandomModel beerRandomModel, BeerEntity beerEntity) {
 
-        if (beerRandomModel.getMethodModel() == null) {
+        if (beerRandomModel.getMethod() == null) {
             return new HashSet<>();
         }
 
         final Set<MashTempEntity> mashTempEntities = new HashSet<>();
 
-        beerRandomModel.getMethodModel().getMashTempModels()
-                .forEach(mashTempModel -> mashTempEntities.add(new MashTempEntity(mashTempModel)));
+        beerRandomModel.getMethod().getMashTempModels()
+                .forEach(mashTempModel -> mashTempEntities.add(new MashTempEntity(mashTempModel, beerEntity)));
 
         return mashTempEntities;
     }

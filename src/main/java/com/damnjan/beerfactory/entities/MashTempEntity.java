@@ -28,9 +28,10 @@ public class MashTempEntity {
     @JoinColumn(name = "beer_id")
     private BeerEntity beerEntity;
 
-    public MashTempEntity(MashTempModel mashTempModel) {
-        this.value = mashTempModel.getTempModel().getValue();
-        this.unit = mashTempModel.getTempModel().getUnit();
+    public MashTempEntity(MashTempModel mashTempModel, BeerEntity beerEntity) {
+        this.value = mashTempModel.getTemp().getValue();
+        this.unit = mashTempModel.getTemp().getUnit();
         this.duration = mashTempModel.getDuration();
+        this.beerEntity = beerEntity;
     }
 }

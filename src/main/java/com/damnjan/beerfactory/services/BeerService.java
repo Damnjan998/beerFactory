@@ -1,6 +1,5 @@
 package com.damnjan.beerfactory.services;
 
-import com.damnjan.beerfactory.config.RestTemplateConfig;
 import com.damnjan.beerfactory.converters.BeerConverter;
 import com.damnjan.beerfactory.entities.BeerEntity;
 import com.damnjan.beerfactory.exceptions.BadRequestException;
@@ -9,9 +8,10 @@ import com.damnjan.beerfactory.models.BeerRandomModel;
 import com.damnjan.beerfactory.models.BeerResponse;
 import com.damnjan.beerfactory.repositories.BeerRepository;
 import com.damnjan.beerfactory.validators.BeerValidator;
-import javassist.NotFoundException;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -47,13 +47,17 @@ public class BeerService {
 
     public void saveBeer() throws BadRequestException, BeerNotFoundException {
 
-        BeerRandomModel beerRandomModel = restTemplate
-                .exchange("https://api.punkapi.com/v2/beers/random", HttpMethod.GET, null, BeerRandomModel.class)
+        List<BeerRandomModel> beerRandomModels = restTemplate
+                .exchange("https://api.punkapi.com/v2/beers/random", HttpMethod.GET, null,
+                        new ParameterizedTypeReference<List<BeerRandomModel>>() {
+                })
                 .getBody();
 
-        if (beerRandomModel == null) {
-           throw new BeerNotFoundException("Beer not found!");
+        if (CollectionUtils.isEmpty(beerRandomModels)) {
+            throw new BeerNotFoundException("Random beer not found!");
         }
+
+        BeerRandomModel beerRandomModel = beerRandomModels.get(0);
         beerValidator.validateInsertBeer(beerRandomModel.getName());
         beerRepository.save(beerConverter.convert(beerRandomModel));
     }
