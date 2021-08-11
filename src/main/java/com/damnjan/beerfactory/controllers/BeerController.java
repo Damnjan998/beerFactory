@@ -45,6 +45,9 @@ public class BeerController {
         } catch (BadRequestException e) {
             log.error(e.getMessage());
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        } catch (BeerNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
     }
 

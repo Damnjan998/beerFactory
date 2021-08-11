@@ -1,5 +1,6 @@
 package com.damnjan.beerfactory.services;
 
+import com.damnjan.beerfactory.config.RestTemplateConfig;
 import com.damnjan.beerfactory.converters.BeerConverter;
 import com.damnjan.beerfactory.entities.BeerEntity;
 import com.damnjan.beerfactory.exceptions.BadRequestException;
@@ -8,7 +9,10 @@ import com.damnjan.beerfactory.models.BeerRandomModel;
 import com.damnjan.beerfactory.models.BeerResponse;
 import com.damnjan.beerfactory.repositories.BeerRepository;
 import com.damnjan.beerfactory.validators.BeerValidator;
+import javassist.NotFoundException;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,11 +23,13 @@ public class BeerService {
     private final BeerRepository beerRepository;
     private final BeerConverter beerConverter;
     private final BeerValidator beerValidator;
+    private final RestTemplate restTemplate;
 
-    public BeerService(BeerRepository beerRepository, BeerConverter beerConverter, BeerValidator beerValidator) {
+    public BeerService(BeerRepository beerRepository, BeerConverter beerConverter, BeerValidator beerValidator, RestTemplate restTemplate) {
         this.beerRepository = beerRepository;
         this.beerConverter = beerConverter;
         this.beerValidator = beerValidator;
+        this.restTemplate = restTemplate;
     }
 
     public List<BeerResponse> getAllBeers() {
@@ -39,11 +45,17 @@ public class BeerService {
         return beerConverter.convert(beerEntity);
     }
 
-    public void saveBeer() throws BadRequestException {
+    public void saveBeer() throws BadRequestException, BeerNotFoundException {
 
-        //TODO fetch random beer
-        beerValidator.validateInsertBeer("");
-        beerRepository.save(beerConverter.convert(new BeerRandomModel()));
+        BeerRandomModel beerRandomModel = restTemplate
+                .exchange("https://api.punkapi.com/v2/beers/random", HttpMethod.GET, null, BeerRandomModel.class)
+                .getBody();
+
+        if (beerRandomModel == null) {
+           throw new BeerNotFoundException("Beer not found!");
+        }
+        beerValidator.validateInsertBeer(beerRandomModel.getName());
+        beerRepository.save(beerConverter.convert(beerRandomModel));
     }
 
     public void deleteBeerById(Long id) throws BeerNotFoundException {

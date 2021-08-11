@@ -1,2 +1,9 @@
 max:
   rows: 10
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dib_challenge
+    username: root
+    password:
+
