@@ -40,21 +40,21 @@ curl -X POST http://localhost:8080/beers/
 curl -X DELETE http://localhost:8080/beers/{id}
 
 
-###<u>Choices for technologies</u>
+### <u>Choices for technologies</u>
 I chose to work with MySQL database, because I wanted to take some challenge for myself.
 In my earlier projects I was using in memory database like H2, and that is why I decided to use MySQL 
 and gain some new knowledge and experience. Also, I wanted to use streams from Java 8 and learn them as much as possible. 
 
 
-###<u>Things I would do differently second time</u> 
+### <u>Things I would do differently second time</u> 
 
 For my second time around, I would add Unit table to database to reduce redundant fields. </br> 
 Also, I would implement search, paging and sorting for application. </br>
 Also, I would do pairing good beers with provided food, and this would also make database a bit different.
 
 
-##Author 
-####Damnjan Askovic
+## Author 
+#### Damnjan Askovic
 
 
 
