@@ -9,6 +9,7 @@
 ### <u>Technologies</u>
 * [Java 11]()
 * [MySQL]()
+* [JUnit5]()  
 * [RestTemplate]()  
 * [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.3/reference/htmlsingle/#boot-features-developing-web-applications)
 * [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.5.3/reference/htmlsingle/#boot-features-jpa-and-spring-data)
