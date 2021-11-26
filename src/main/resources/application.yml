@@ -5,5 +5,5 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/dib_challenge
     username: root
-    password:
+    password: 2711damnjan2711998
 

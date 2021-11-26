@@ -5,6 +5,8 @@ import com.damnjan.beerfactory.exceptions.BeerNotFoundException;
 import com.damnjan.beerfactory.models.BeerResponse;
 import com.damnjan.beerfactory.services.BeerService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,5 +61,12 @@ public class BeerController {
             log.error(e.getMessage());
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity getUsers(@RequestParam(defaultValue = "0") Integer page,
+                                   @RequestParam(defaultValue = "5") Integer size) {
+
+       return ResponseEntity.ok(beerService.getUsers(page, size));
     }
 }

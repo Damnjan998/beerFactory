@@ -6,9 +6,13 @@ import com.damnjan.beerfactory.exceptions.BadRequestException;
 import com.damnjan.beerfactory.exceptions.BeerNotFoundException;
 import com.damnjan.beerfactory.models.BeerRandomModel;
 import com.damnjan.beerfactory.models.BeerResponse;
+import com.damnjan.beerfactory.models.PageResponseModel;
 import com.damnjan.beerfactory.repositories.BeerRepository;
 import com.damnjan.beerfactory.validators.BeerValidator;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -68,5 +72,11 @@ public class BeerService {
                 .orElseThrow(() -> new BeerNotFoundException("There is no beer with ID: " + id));
 
         beerRepository.delete(beerEntity);
+    }
+
+    public PageResponseModel<BeerEntity> getUsers(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BeerEntity> all = beerRepository.findAll(pageable);
+        return new PageResponseModel<>(all.getContent(), all.getTotalPages(), all.getNumber() + 1);
     }
 }
